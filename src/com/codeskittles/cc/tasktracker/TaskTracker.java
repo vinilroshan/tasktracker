@@ -21,7 +21,7 @@ public class TaskTracker {
             "MARK Task Done: " + MARK_DONE_USAGE + "\n" +
             "LIST Tasks: " + LIST_USAGE + "\n";
 
-    private static final String TASK_FILE_PATH = System.getProperty("user.home") + "/tasks.txt";
+    private static final String TASK_FILE_PATH = System.getProperty("user.home") + "/tasks.json";
     private static final File TASK_FILE = new File(TASK_FILE_PATH);
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -38,6 +38,8 @@ public class TaskTracker {
         } catch (IOException ex) {
             System.err.println("Error creating/writing task file: " + ex.getMessage());
         }
+
+        objectMapper.findAndRegisterModules();
     }
 
     private static void addTask(final String[] args) {
@@ -164,7 +166,7 @@ public class TaskTracker {
                         .forEach(t -> System.out.println(t.getId() + " - " + t.getDescription() + " - " + t.getStatus()));
             }
         } catch (IOException ex) {
-            System.err.println("Error reading/writing task file");
+            System.err.println("Error reading/writing task file " + ex.getMessage());
             System.exit(1);
         }
     }
