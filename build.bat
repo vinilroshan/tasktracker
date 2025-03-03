@@ -1,5 +1,8 @@
 @echo OFF
-set JAVA_HOME=C:\Program Files\Java\jdk-21
+if "%JAVA_HOME%"=="" (
+    echo Error: JAVA_HOME environment variable is not set.
+    exit /b 1
+)
 set PATH=%JAVA_HOME%\bin;%PATH%
 rmdir bin /s /q
 del tasktracker.jar
